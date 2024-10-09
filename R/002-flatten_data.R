@@ -10,7 +10,7 @@
 ######################################################
 
 
-#### 1990 - 1991 
+#### 1990 - 1991  ###########
 # Specify Years 
 editions <- c("1990to1991", "1991to1992")
 
@@ -37,7 +37,14 @@ migration_19901991 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Inflows #
       data_table <- fread(state_files[j], header = FALSE, sep = "\n") # Open Data
       data_table2 <- data_table[grepl("County Non-Migrants|County Non-migrants", V1) == TRUE] # Selecting non-migrants
-      data_table <- data_table[grepl("Same State|Same Region|Different Region|County Non-Migrants|County Non-migrants|Region[[:space:]][0-9]{1}|All Migration Flows|Foreign|Overseas", V1) == FALSE] # Remove Elements
+        #remove elements
+      #We can remove elements summarizing Foreign for a destination
+      #But we do not remove foreign destinations Foreign destinations (otherwise there will be no destinations input in those entries)
+      #So we make sure that everytime a "/" exist, that means the foreign entry is not a summary, but a valid entry
+      #We will remove those foreign entries later
+      keep.id <- grepl("/",data_table$V1) | !grepl("Same State|Same Region|Different Region|County Non-Migrants|County Non-migrants|Region[[:space:]][0-9]{1}|All Migration Flows|Foreign|Overseas",data_table$V1)
+      data_table <- data_table[keep.id] # Remove Elements
+      #data_table <- data_table[grepl("Same State|Same Region|Different Region|County Non-Migrants|County Non-migrants|Region[[:space:]][0-9]{1}|All Migration Flows|Foreign|Overseas", V1) == FALSE] # Remove Elements
       data_table <- data_table[, V1 := toupper(V1)] # Upper Case
       data_table <- data_table[, test := gsub(".*[[:space:]][A-Z]{2}[[:space:]]{1,}[0-9]{1,}", "", V1)] # Extract Pattern
       data_table <- data_table[, test := str_trim(test)] # Remove Leading/Lagging Space
@@ -60,8 +67,9 @@ migration_19901991 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       data_table <- data_table[, returns := as.numeric(returns)] # Specify Numeric Class
       data_table <- data_table[, exemptions := as.numeric(exemptions)] # Specify Numeric Class
       data_table <- data_table[, c("org_state", "org_county", "des_state", "des_county", "year", "returns", "exemptions"), with = FALSE] # Keep Columns
-      data_table <- data_table[org_state %in% us_states$FIPS_CODE] # Recognized State
+      data_table <- data_table[org_state %in% us_states$FIPS_CODE & des_state %in% us_states$FIPS_CODE] # Recognized State
       data_table <- data_table[, file_name := state_files[j]] # File Name
+      
       
       data_table2 <- data_table2[, V1 := toupper(V1)] # Upper Case
       data_table2 <- data_table2[, test := gsub(".*[[:space:]][A-Z]{2}[[:space:]]{1,}[0-9]{1,}", "", V1)] # Extract Pattern
@@ -109,7 +117,14 @@ migration_19901991 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Outflows #
       data_table <- fread(state_files[j], header = FALSE, sep = "\n") # Open Data
       data_table2 <- data_table[grepl("County Non-Migrants|County Non-migrants", V1) == TRUE] # Keep non-migrants
-      data_table <- data_table[grepl("Same State|Same Region|Different Region|County Non-Migrants|County Non-migrants|Region[[:space:]][0-9]{1}|All Migration Flows|Foreign|Overseas", V1) == FALSE] # Remove Elements
+      #remove elements
+      #We can remove elements summarizing Foreign for a destination
+      #But we do not remove foreign destinations Foreign destinations (otherwise there will be no destinations input in those entries)
+      #So we make sure that everytime a "/" exist, that means the foreign entry is not a summary, but a valid entry
+      #We will remove those foreign entries later
+      keep.id <- grepl("/",data_table$V1) | !grepl("Same State|Same Region|Different Region|County Non-Migrants|County Non-migrants|Region[[:space:]][0-9]{1}|All Migration Flows|Foreign|Overseas",data_table$V1)
+      data_table <- data_table[keep.id] # Remove Elements
+      #data_table <- data_table[grepl("Same State|Same Region|Different Region|County Non-Migrants|County Non-migrants|Region[[:space:]][0-9]{1}|All Migration Flows|Foreign|Overseas", V1) == FALSE] # Remove Elements
       data_table <- data_table[, V1 := toupper(V1)] # Upper Case
       data_table <- data_table[, test := gsub(".*[[:space:]][A-Z]{2}[[:space:]]{1,}[0-9]{1,}", "", V1)] # Extract Pattern
       data_table <- data_table[, test := str_trim(test)] # Remove Leading/Lagging Space
@@ -132,8 +147,9 @@ migration_19901991 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       data_table <- data_table[, returns := as.numeric(returns)] # Specify Numeric Class
       data_table <- data_table[, exemptions := as.numeric(exemptions)] # Specify Numeric Class
       data_table <- data_table[, c("org_state", "org_county", "des_state", "des_county", "year", "returns", "exemptions"), with = FALSE] # Keep Columns
-      data_table <- data_table[org_state %in% us_states$FIPS_CODE] # Recognized State
+      data_table <- data_table[org_state %in% us_states$FIPS_CODE & des_state %in% us_states$FIPS_CODE] # Recognized State
       data_table <- data_table[, file_name := state_files[j]] # File Name
+
       
       
       data_table2 <- data_table2[, V1 := toupper(V1)] # Upper Case
@@ -210,6 +226,7 @@ migration_1993 <- foreach(i = 1:length(editions), .combine = rbind, .errorhandli
       # Inflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[, X__1 := as.integer(X__1)] # Specify Integer Class
       data_table <- data_table[, X__1 := as.character(X__1)] # Specify Character Class
       data_table <- data_table[, X__2 := as.integer(X__2)] # Specify Integer Class
@@ -267,6 +284,7 @@ migration_1993 <- foreach(i = 1:length(editions), .combine = rbind, .errorhandli
       # Outflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[, X__1 := as.integer(X__1)] # Specify Integer Class
       data_table <- data_table[, X__1 := as.character(X__1)] # Specify Character Class
       data_table <- data_table[, X__2 := as.integer(X__2)] # Specify Integer Class
@@ -351,6 +369,7 @@ migration_19921994 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Inflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[nchar(X__1) == 2 & is.na(X__1) == FALSE] # Remove Headings
       setnames(data_table, "X__1", "des_state") # Specify Column Names
       setnames(data_table, "X__2", "des_county") # Specify Column Names
@@ -395,6 +414,7 @@ migration_19921994 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Outflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[nchar(X__1) == 2 & is.na(X__1) == FALSE] # Remove Headings
       setnames(data_table, "X__1", "org_state") # Specify Column Names
       setnames(data_table, "X__2", "org_county") # Specify Column Names
@@ -469,6 +489,9 @@ migration_19952003 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Inflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
+        #hard-code to correct a coding mistake in co0304ILi.xls
+      if(i==9)if(j==15)data_table[1,2] <- "000" 
       data_table <- data_table[nchar(X__1) == 2 & is.na(X__1) == FALSE] # Remove Headings
       setnames(data_table, "X__1", "des_state") # Specify Column Names
       setnames(data_table, "X__2", "des_county") # Specify Column Names
@@ -512,6 +535,7 @@ migration_19952003 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Outflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[nchar(X__1) == 2 & is.na(X__1) == FALSE] # Remove Headings
       setnames(data_table, "X__1", "org_state") # Specify Column Names
       setnames(data_table, "X__2", "org_county") # Specify Column Names
@@ -582,6 +606,7 @@ migration_20042006 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Inflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[nchar(X__1) == 2 & is.na(X__1) == FALSE] # Remove Headings
       setnames(data_table, "X__1", "des_state") # Specify Column Names
       setnames(data_table, "X__2", "des_county") # Specify Column Names
@@ -624,6 +649,7 @@ migration_20042006 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Outflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[nchar(X__1) == 2 & is.na(X__1) == FALSE] # Remove Headings
       setnames(data_table, "X__1", "org_state") # Specify Column Names
       setnames(data_table, "X__2", "org_county") # Specify Column Names
@@ -695,6 +721,7 @@ migration_20072008 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Inflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[nchar(X__1) == 2 & is.na(X__1) == FALSE] # Remove Headings
       setnames(data_table, "X__1", "des_state") # Specify Column Names
       setnames(data_table, "X__2", "des_county") # Specify Column Names
@@ -737,6 +764,7 @@ migration_20072008 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Outflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 8, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[nchar(X__1) == 2 & is.na(X__1) == FALSE] # Remove Headings
       setnames(data_table, "X__1", "org_state") # Specify Column Names
       setnames(data_table, "X__2", "org_county") # Specify Column Names
@@ -808,6 +836,7 @@ migration_20092010 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Inflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 7, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[, X__1 := as.integer(X__1)] # Specify Integer Class
       data_table <- data_table[, X__1 := as.character(X__1)] # Specify Character Class
       data_table <- data_table[, X__2 := as.integer(X__2)] # Specify Integer Class
@@ -861,6 +890,7 @@ migration_20092010 <- foreach(i = 1:length(editions), .combine = rbind, .errorha
       # Outflows #
       data_table <- read_excel(state_files[j], sheet = 1, skip = 7, col_names = FALSE) # Open Data
       data_table <- data.table(data_table) # Specify Data Table Object
+      colnames(data_table) <- paste0("X__",1:NCOL(data_table))
       data_table <- data_table[, X__1 := as.integer(X__1)] # Specify Integer Class
       data_table <- data_table[, X__1 := as.character(X__1)] # Specify Character Class
       data_table <- data_table[, X__2 := as.integer(X__2)] # Specify Integer Class
@@ -937,12 +967,15 @@ gc() # Garbage Collection
 ########## Prepare Data ##########
 
 ##### Create Variables #####
-county_migration_data <- county_migration_data[, origin := paste0(org_state, org_county)] # Origin Code
-county_migration_data <- county_migration_data[, destination := paste0(des_state, des_county)] # Origin Code
+  #Here update our approach: rather than using paste0 of characters,
+  #match the exact digit position by deal with it as numeric values
+county_migration_data <- county_migration_data[, origin := as.numeric(org_state)*1e3+as.numeric(org_county)] # Origin Code
+county_migration_data <- county_migration_data[, destination := as.numeric(des_state)*1e3+as.numeric(des_county)] # Origin Code
 
 ##### Specify Column Class #####
-county_migration_data <- county_migration_data[, origin := as.character(origin)] # Character Class
-county_migration_data <- county_migration_data[, destination := as.character(destination)] # Character Class
+  #Keey origin and destination as numeric: otherwise, we will need to turn 1001 to "01001"
+#county_migration_data <- county_migration_data[, origin := as.character(origin)] # Character Class
+#county_migration_data <- county_migration_data[, destination := as.character(destination)] # Character Class
 county_migration_data <- county_migration_data[, year := as.integer(year)] # Integer Class
 county_migration_data <- county_migration_data[, returns := as.numeric(returns)] # Numeric Class
 county_migration_data <- county_migration_data[, exemptions := as.numeric(exemptions)] # Numeric Class

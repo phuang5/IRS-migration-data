@@ -43,6 +43,7 @@ if (!require("pacman", character.only = TRUE)){
 
 # Libraries
 pkgs <- c(
+  "readxl",      #read excel
   "tidyverse",   # Tidyverse
   "data.table",  # Data Management/Manipulation
   "doParallel",  # Parallel Computing

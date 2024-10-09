@@ -1,11 +1,13 @@
 ######################################################
 ##
-## IRS County-to-County Migration Data
+## IRS County-to-County Migration Data Version 2.0
 ##       Master Script
 ##
-## Authors: Mathew Hauer, mehauer@fsu.edu
-##          James Byars, jmbyars@uga.edu
-## Last updated: 08/16/2018
+## Authors: Peng Huang, peng.huang@uga.edu
+##
+## Last updated: 10/09/2024
+##
+## Based on Hauer & Byars (2019)
 ##
 ######################################################
 
