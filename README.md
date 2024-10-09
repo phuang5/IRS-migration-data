@@ -4,7 +4,7 @@ This repository provides updated data and code for IRS County-to-County Migratio
 
 #Updates This updated version resolves a few errors in the previous data, including 1) some mis-coded FIPS codes in Year 1998, 2) one coding error in Year 2003, 3) error messages in processing excel files in Years 1992- and text files in Years 1990,1991, 4) underestimation of unidentified and total migrants in Years 1990,1991, and 5) clarification that the unidentified and total migrants include international migrants.
 
-Detailed information can be found in [**changelog**](https://github.com/phuang5/IRS-migration-data-2.0/changelog.pdf)
+Detailed information can be found in [**changelog**](https://github.com/phuang5/IRS-migration-data-2.0/blob/master/changelog.pdf)
 
 ### Citation
 
