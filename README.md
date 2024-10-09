@@ -15,7 +15,8 @@ Please cite both this repository and the previous work by Hauer and Byars:
 
 # Organization
 
-Data is organized in identical format as the previous version: - `LATEX` — Contains latex files to reproduce the main manuscript file. - `R` - Contains the R scripts needed to reproduce the flat IRS migration datafile. - `MigData` — Initial data resources, unprocessed. - `DATA-PROCESSED` — Final, post-processed data.
+Data is organized in identical format as the previous version:
+ - `LATEX` — Contains latex files to reproduce the main manuscript file. - `R` - Contains the R scripts needed to reproduce the flat IRS migration datafile. - `MigData` — Initial data resources, unprocessed. - `DATA-PROCESSED` — Final, post-processed data.
 
 # Use
 
