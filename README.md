@@ -10,7 +10,8 @@ Detailed information can be found in [**changelog**](https://github.com/phuang5/
 
 Please cite both this repository and the previous work by Hauer and Byars: 
 >Huang, Peng. *IRS-migration-data-2.0* [Computer Software]. <https://github.com/phuang5/IRS-migration-data-2.0> 
-> Hauer, Mathew, and James Byars . (2019). “IRS County-to-County Migration Data, 1990-2010.” *Demographic Research* 40: 1153-1166.
+
+> Hauer, Mathew, and James Byars. (2019). “IRS County-to-County Migration Data, 1990-2010.” *Demographic Research* 40: 1153-1166.
 
 # Organization
 
