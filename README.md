@@ -2,7 +2,8 @@
 
 This repository provides updated data and code for IRS County-to-County Migration Data. This is based on the [**repository**](https://github.com/mathewhauer/IRS-migration-data) developed by [**Hauer & Byars (2017)**](https://doi.org/10.4054/DemRes.2019.40.40). Thank you for publishing this data!
 
-#Updates This updated version resolves a few errors in the previous data, including 1) some mis-coded FIPS codes in Year 1998, 2) one coding error in Year 2003, 3) error messages in processing excel files in Years 1992- and text files in Years 1990,1991, 4) underestimation of unidentified and total migrants in Years 1990,1991, and 5) clarification that the unidentified and total migrants include international migrants.
+# Updates 
+This updated version resolves a few errors in the previous data, including 1) some mis-coded FIPS codes in Year 1998, 2) one coding error in Year 2003, 3) error messages in processing excel files in Years 1992- and text files in Years 1990,1991, 4) underestimation of unidentified and total migrants in Years 1990,1991, and 5) clarification that the unidentified and total migrants include international migrants.
 
 Detailed information can be found in [**changelog**](https://github.com/phuang5/IRS-migration-data-2.0/blob/master/changelog.pdf)
 
@@ -31,11 +32,11 @@ The final IRS migration data can be downloaded at `DATA-PROCESSED/county_migrati
 
 `ORIGIN` - Refers to the 5-digit FIPS code for the origin of the migrants.
 
-`DESTINATION` - Refers to the two-digit FIPS code associated with each state.
+`DESTINATION` - Refers to the 5-digit FIPS code for the destination of the migrants.
 
 `1990:2010` - Refers to number of migrants who moved from ORIGIN to DESTINATION in a given year.
 
--   NOTE: there is an additional 5-digit FIPS code in the both the ORIGIN and DESTINATION field. This is coded as 99999 and is in reference to all migration flows containing less than 10 tax filers as well as international migration flows.
+-   NOTE: there is an additional 5-digit FIPS code in the both the ORIGIN and DESTINATION field. This is coded as 99999 and is in reference to all unidentified migration flows containing less than 10 tax filers as well as international migration flows.
 
 # Correspondence
 
