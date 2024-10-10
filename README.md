@@ -1,34 +1,40 @@
-# Introduction
+# IRS-migration-data-2.0
 
 This repository provides updated data and code for IRS County-to-County Migration Data. This is based on the [**repository**](https://github.com/mathewhauer/IRS-migration-data) developed by [**Hauer & Byars (2017)**](https://doi.org/10.4054/DemRes.2019.40.40). Thank you for publishing this data!
 
-# Updates 
-This updated version resolves a few errors in the previous data, including 1) some mis-coded FIPS codes in Year 1998, 2) one coding error in Year 2003, 3) error messages in processing excel files in Years 1992- and text files in Years 1990,1991, 4) underestimation of unidentified and total migrants in Years 1990,1991, and 5) clarification that the unidentified and total migrants include international migrants.
+## Updates 
+This updated version resolves a few errors in the previous data, including 
+- correct some messed FIPS codes in Year 1998 due to format discrepancies in raw data
+- correct one coding error in raw data in Year 2003
+- resolve error messages in processing excel files in Years 1992- 
+- resolve error messages in processing  text files in Years 1990,1991
+- correct underestimation of unidentified and total migrants in Years 1990,1991
+- add clarification that the unidentified and total migrants include international migrants, as well as the possibility for future work to discern these two types
 
 Detailed information can be found in [**changelog**](https://github.com/phuang5/IRS-migration-data-2.0/blob/master/changelog.pdf)
 
-### Citation
+## Citation
 
 Please cite both this repository and the previous work by Hauer and Byars: 
 >Huang, Peng. *IRS-migration-data-2.0* [Computer Software]. <https://github.com/phuang5/IRS-migration-data-2.0> 
 
 > Hauer, Mathew, and James Byars. (2019). “IRS County-to-County Migration Data, 1990-2010.” *Demographic Research* 40: 1153-1166.
 
-# Organization
+## Organization
 
 Data is organized in identical format as the previous version:
  - `LATEX` — Contains latex files to reproduce the main manuscript file. - `R` - Contains the R scripts needed to reproduce the flat IRS migration datafile. - `MigData` — Initial data resources, unprocessed. - `DATA-PROCESSED` — Final, post-processed data.
 
-# Use
+## Use
 
 -   Feel free to create a new branch for further incorporation and analysis.
 -   Please properly cite all use of the underlying code or data. Thanks!
 
-# Data
+## Data
 
 The final IRS migration data can be downloaded at `DATA-PROCESSED/county_migration_data.txt` or reproduced by running the `R/999-master_script.R` file.
 
-# Codebook
+## Codebook
 
 `ORIGIN` - Refers to the 5-digit FIPS code for the origin of the migrants.
 
@@ -38,7 +44,7 @@ The final IRS migration data can be downloaded at `DATA-PROCESSED/county_migrati
 
 -   NOTE: there is an additional 5-digit FIPS code in the both the ORIGIN and DESTINATION field. This is coded as 99999 and is in reference to all unidentified migration flows containing less than 10 tax filers as well as international migration flows.
 
-# Correspondence
+## Correspondence
 
 For any issues with the functionality of these scripts please [create an issue](https://github.com/phuang5/IRS-migration-data-2.0/issues).
 
