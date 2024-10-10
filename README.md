@@ -1,15 +1,17 @@
 # IRS-migration-data-2.0
 
-This repository provides updated data and code for IRS County-to-County Migration Data. This is based on the [**repository**](https://github.com/mathewhauer/IRS-migration-data) developed by [**Hauer & Byars (2017)**](https://doi.org/10.4054/DemRes.2019.40.40). Thank you for publishing this data!
+This repository provides updated data and code for IRS County-to-County Migration Data. This is based on the [**repository**](https://github.com/mathewhauer/IRS-migration-data) developed by [**Hauer & Byars (2019)**](https://doi.org/10.4054/DemRes.2019.40.40). Thanks for publishing this data!
 
 ## Updates 
-This updated version resolves a few errors in the previous data, including 
+This updated version resolves a few errors in the previous data, including: 
 - correct some messed FIPS codes in Year 1998 due to format discrepancies in raw data
 - correct one coding error in raw data in Year 2003
 - resolve error messages in processing excel files in Years 1992- 
 - resolve error messages in processing  text files in Years 1990,1991
 - correct underestimation of unidentified and total migrants in Years 1990,1991
 - add clarification that the unidentified and total migrants include international migrants, as well as the possibility for future work to discern these two types
+
+The updated data will generate different results compared to the previous version for migration in Year 1998, and total and unidentified migration in Years 1990, 1991, and 2003.
 
 Detailed information can be found in [**changelog**](https://github.com/phuang5/IRS-migration-data-2.0/blob/master/changelog.pdf)
 
